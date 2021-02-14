@@ -11,19 +11,27 @@ export default function Home() {
   const { products } = useSelector((state: State) => state);
   const [links] = useState(['new', 'clothing', 'jewelery', 'electronics']);
   const [active, setActive] = useState('new');
+  const [show, setShow] = useState(false);
   const [productList, setProductList] = useState(null);
 
   useEffect(() => {
-    if (products) setProductList(products);
+    if (products) {
+      setProductList(products);
+      setShow(true);
+    }
   }, [products]);
 
   const switchCategory = (category) => {
+    setShow(false);
     if (category !== 'new') {
       setProductList([...products.filter((product) => product.category.includes(category))]);
     } else {
       setProductList(products);
     }
     setActive(category);
+    setTimeout(() => {
+      setShow(true);
+    }, 200);
   };
 
   return (
@@ -49,6 +57,7 @@ export default function Home() {
         {!productList && <Loader containerHeight="300px" />}
         <div className={styles.grid}>
           {productList &&
+            show &&
             productList.slice(0, 10).map((product, index) => (
               <Link key={index} href={`/product?id=${product.id}`}>
                 <a onClick={() => dispatch({ type: 'SET_SELECTED_PRODUCT', selectedProduct: product })}>

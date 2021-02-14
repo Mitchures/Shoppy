@@ -8,7 +8,10 @@ function Card({ title, image, displayPrice }) {
         <img src={image} alt={title} />
       </div>
       <h4>{title}</h4>
-      <p>{displayPrice}</p>
+      <p>
+        <span>{displayPrice.charAt(0)}</span>
+        {displayPrice.substring(1)}
+      </p>
     </div>
   );
 }

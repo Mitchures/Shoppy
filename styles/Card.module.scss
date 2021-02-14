@@ -10,6 +10,29 @@
   animation: fadeIn ease .5s;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s;
 
+  h4 {
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  p {
+    display: flex;
+    justify-content: baseline;
+    font-size: 26px;
+    margin-top: 0;
+    font-weight: 800;
+
+    span {
+      margin-left: 1px;
+      margin-top: 2px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+  }
+
   &:hover {
     border-color: #fdc529;
     transform: scale(1.05) translateZ(0px);

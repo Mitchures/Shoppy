@@ -1,5 +1,5 @@
 .product {
-  min-height: 80vh;
+  min-height: 85vh;
 }
 
 .body {
@@ -25,6 +25,10 @@
     transition: all 0.3s;
     background-color: rgba(0, 0, 0, 0.25);
     margin-bottom: 2rem;
+
+    svg {
+      margin-right: 2px;
+    }
     
     &:hover {
       background-color: black;
@@ -50,6 +54,25 @@
   flex-direction: column;
   height: 100%;
   padding: 0 2.125rem;
+
+  h2 {
+    display: flex;
+    justify-content: baseline;
+    font-size: 36px;
+    margin-top: 0;
+    font-weight: 800;
+
+    span {
+      margin-left: 1px;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+  }
+
+  p {
+    margin-top: 0;
+  }
 
   button {
     padding: 1rem 1.875rem;

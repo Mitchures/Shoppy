@@ -24,13 +24,13 @@ function product() {
 
   return (
     <div className={styles.product}>
-      {!selectedProduct && <Loader containerHeight="80vh" />}
+      {!selectedProduct && <Loader containerHeight="85vh" />}
       {selectedProduct && (
         <div className={styles.body}>
           <div className={styles.left}>
             <Link href="/">
               <a>
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="chevron-left" />
               </a>
             </Link>
             <div className={styles.image}>
@@ -40,7 +40,10 @@ function product() {
           <div className={styles.right}>
             <h1>{selectedProduct.title}</h1>
             <p>{selectedProduct.description}</p>
-            <h2>{selectedProduct.displayPrice}</h2>
+            <h2>
+              <span>{selectedProduct.displayPrice.charAt(0)}</span>
+              {selectedProduct.displayPrice.substring(1)}
+            </h2>
             <button>Buy Now</button>
           </div>
         </div>
