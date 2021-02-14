@@ -24,6 +24,7 @@
     height: 46px;
     transition: all 0.3s;
     background-color: rgba(0, 0, 0, 0.25);
+    margin-bottom: 2rem;
     
     &:hover {
       background-color: black;
@@ -88,10 +89,6 @@
 
   .left {
     order: 1;
-
-    a {
-      margin-bottom: 2rem;
-    }
   }
 
   .image {
