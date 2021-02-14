@@ -1,4 +1,4 @@
-import React, { Component, FC } from 'react';
+import React, { Component, ReactNode } from 'react';
 import styles from '../styles/WithSplashScreen.module.scss';
 import Image from 'next/image';
 
@@ -14,7 +14,13 @@ function ShowSplashScreen() {
   );
 }
 
-export function WithSplashScreen(WrappedComponent: FC) {
+interface IComponentProps {
+  Component: Component;
+  pageProps: any;
+  children?: ReactNode;
+}
+
+export function WithSplashScreen(WrappedComponent: (IComponentProps) => JSX.Element) {
   return class extends Component<{}, { loading: boolean }> {
     constructor(props: any) {
       super(props);
