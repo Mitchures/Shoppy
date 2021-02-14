@@ -1,0 +1,42 @@
+.splashScreen {
+  display: grid;
+  place-items: center;
+  color: black;
+  height: 100vh;
+  background-color: white;
+  // background-image: linear-gradient(
+  //   120deg,
+  //   #fdc529 0%,
+  //   #f7d576 100%
+  // );
+}
+
+.content {
+  animation: fadeIn ease .5s;
+  height: 58px;
+  padding: 1.25rem 1.875rem;
+  display: flex;
+  align-items: center;
+
+  h1 {
+    padding-left: 0.75rem;
+    font-size: 42px;
+
+  }
+
+  & > h1 {
+    margin-right: 0.75rem;
+  }
+
+  img {
+    object-fit: contain;
+    height: 64px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .splashScreen {
+    background-color: black;
+    color: white;
+  }
+}

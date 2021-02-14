@@ -1,0 +1,46 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  cursor: pointer;
+  padding: 2rem 1.25rem;
+  margin: 0 0.5rem;
+  border: 4px solid white;
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+
+  &:hover {
+    border-color: #fdc529;
+    transform: scale(1.05) translateZ(0px);
+  }
+}
+
+.image {
+  background-color: white;
+  padding: 1rem;
+  margin: 0 auto;
+  
+  img {
+    object-fit: contain;
+    width: 200px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    margin-bottom: 1.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    border-color: black;
+  }
+
+  .image {
+    border-radius: 6px;
+    opacity: 0.9;
+  }
+}
