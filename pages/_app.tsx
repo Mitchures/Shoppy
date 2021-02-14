@@ -52,7 +52,8 @@ function MyApp({ Component, pageProps }) {
     <Provider store={store}>
       <Head>
         <title>Shoppy</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
       <Header />
       <Component {...pageProps} />
