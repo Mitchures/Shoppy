@@ -16,8 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     if (products) {
-      setProductList(products);
-      setShow(true);
+      switchCategory(active);
     }
   }, [products]);
 
