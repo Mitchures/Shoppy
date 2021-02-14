@@ -1,3 +1,7 @@
+.home {
+  animation: fadeIn ease .5s;
+}
+
 .banner {
   height: 450px;
   color: white;
@@ -80,6 +84,15 @@
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 960px) {

@@ -1,13 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Header.module.scss';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../types';
+import { fx } from 'money';
 
 function Header() {
-  const [links] = useState(['USD', 'GBP', 'EUR', 'JPY']);
-  const { selectedCurrency } = useSelector((state: State) => state);
   const dispatch = useDispatch();
+  const [currencies] = useState(['USD', 'GBP', 'EUR', 'JPY']);
+  const [currencyChanged, setCurrencyChanged] = useState(false);
+  const { selectedCurrency, baseCurrency, currencySymbols, products, selectedProduct, rates } = useSelector(
+    (state: State) => state,
+  );
+
+  useEffect(() => {
+    if (currencyChanged) {
+      fx.base = baseCurrency;
+      fx.rates = rates;
+      const updatedProducts = [
+        ...products.map((product) => {
+          product.displayPrice =
+            currencySymbols[selectedCurrency] + fx(product.price).from(baseCurrency).to(selectedCurrency).toFixed(2);
+          return product;
+        }),
+      ];
+      dispatch({ type: 'SET_PRODUCTS', products: updatedProducts });
+      if (selectedProduct) {
+        selectedProduct.displayPrice =
+          currencySymbols[selectedCurrency] +
+          fx(selectedProduct.price).from(baseCurrency).to(selectedCurrency).toFixed(2);
+        dispatch({ type: 'SET_SELECTED_PRODUCT', selectedProduct: selectedProduct });
+      }
+      setCurrencyChanged(false);
+    }
+  }, [currencyChanged]);
+
+  const switchCurrency = (currency) => {
+    setCurrencyChanged(true);
+    dispatch({ type: 'SET_SELECTED_CURRENCY', selectedCurrency: currency });
+  };
 
   return (
     <div className={styles.header}>
@@ -21,11 +52,11 @@ function Header() {
           </Link>
         </div>
         <div className={styles.right}>
-          {links.map((currency, index) => (
+          {currencies.map((currency, index) => (
             <a
               key={index}
               className={selectedCurrency == currency ? styles.active : ''}
-              onClick={() => dispatch({ type: 'SET_SELECTED_CURRENCY', selectedCurrency: currency })}
+              onClick={() => switchCurrency(currency)}
             >
               {currency}
             </a>

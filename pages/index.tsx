@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { State } from '../types';
 import Card from '../components/Card';
 import Link from 'next/link';
+import Loader from '../components/Loader';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -13,35 +14,23 @@ export default function Home() {
   const [productList, setProductList] = useState(null);
 
   useEffect(() => {
-    // Fetch products
-    fetch('https://fakestoreapi.com/products')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        // Set list of products
-        setProductList(data);
-        dispatch({ type: 'SET_PRODUCTS', products: data });
-      });
-    // Fetch Currency Rates
-    fetch('https://api.exchangeratesapi.io/latest?base=USD&symbols=EUR,GBP,JPY')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        dispatch({ type: 'SET_RATES', rates: data.rates });
-      });
-  }, []);
+    if (products) {
+      setProductList(products);
+    }
+  }, [products]);
 
-  useEffect(() => {
+  const switchCategory = (category) => {
     setProductList(null);
-    if (active !== 'new') {
-      setProductList([...products.filter((product) => product.category.includes(active))]);
+    if (category !== 'new') {
+      setProductList([...products.filter((product) => product.category.includes(category))]);
     } else {
       setProductList(products);
     }
-  }, [active]);
+    setActive(category);
+  };
 
   return (
-    <div>
+    <div className={styles.home}>
       <div className={styles.banner}>
         <div className={styles.overlay}>
           <h1>
@@ -55,11 +44,12 @@ export default function Home() {
         <h1>What's New</h1>
         <div className={styles.filters}>
           {links.map((link, index) => (
-            <a key={index} className={active == link ? styles.active : ''} onClick={() => setActive(link)}>
+            <a key={index} className={active == link ? styles.active : ''} onClick={() => switchCategory(link)}>
               {link}
             </a>
           ))}
         </div>
+        {!productList && <Loader containerHeight="300px" />}
         <div className={styles.grid}>
           {productList &&
             productList.slice(0, 10).map((product, index) => (

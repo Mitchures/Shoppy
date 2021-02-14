@@ -2,6 +2,7 @@ export interface IProduct {
   id: Number;
   title: string;
   price: Number;
+  displayPrice?: string | null;
   description: string;
   category: string;
   image: string;
