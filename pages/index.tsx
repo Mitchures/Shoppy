@@ -14,13 +14,10 @@ export default function Home() {
   const [productList, setProductList] = useState(null);
 
   useEffect(() => {
-    if (products) {
-      setProductList(products);
-    }
+    if (products) setProductList(products);
   }, [products]);
 
   const switchCategory = (category) => {
-    setProductList(null);
     if (category !== 'new') {
       setProductList([...products.filter((product) => product.category.includes(category))]);
     } else {
