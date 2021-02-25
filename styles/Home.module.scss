@@ -1,5 +1,5 @@
 .home {
-  animation: fadeIn ease .5s;
+  // animation: fadeIn ease .5s;
 }
 
 .banner {
@@ -77,6 +77,10 @@
     border-radius: 100%;
     left: calc(50% - 3px);
   }
+}
+
+.container {
+  min-height: 640px;
 }
 
 .grid {

@@ -5,6 +5,8 @@ import { State } from '../types';
 import Card from '../components/Card';
 import Link from 'next/link';
 import Loader from '../components/Loader';
+import { motion } from 'framer-motion';
+import { fadeInUp, stagger } from '../utils/animations';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -34,7 +36,7 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.home}>
+    <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.home}>
       <div className={styles.banner}>
         <div className={styles.overlay}>
           <h1>
@@ -53,19 +55,24 @@ export default function Home() {
             </a>
           ))}
         </div>
-        {!productList && <Loader containerHeight="300px" />}
-        <div className={styles.grid}>
-          {productList &&
-            show &&
-            productList.slice(0, 10).map((product, index) => (
-              <Link key={index} href={`/product?id=${product.id}`}>
-                <a onClick={() => dispatch({ type: 'SET_SELECTED_PRODUCT', selectedProduct: product })}>
-                  <Card key={index} {...product} />
-                </a>
-              </Link>
-            ))}
+        <div className={styles.container}>
+          {!productList && <Loader containerHeight="400px" />}
+          {productList && show && (
+            <motion.div variants={stagger} initial="hidden" animate="show" className={styles.grid}>
+              {productList.slice(0, 10).map((product, index) => (
+                <Link key={index} href={`/product?id=${product.id}`}>
+                  <motion.a
+                    variants={fadeInUp}
+                    onClick={() => dispatch({ type: 'SET_SELECTED_PRODUCT', selectedProduct: product })}
+                  >
+                    <Card key={index} {...product} />
+                  </motion.a>
+                </Link>
+              ))}
+            </motion.div>
+          )}
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 }

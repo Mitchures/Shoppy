@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { useStore } from '../store';
 import { fx } from 'money';
 import Footer from '../components/Footer';
+import { AnimatePresence } from 'framer-motion';
 
 function MyApp({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState);
@@ -56,7 +57,9 @@ function MyApp({ Component, pageProps }) {
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
       <Header />
-      <Component {...pageProps} />
+      <AnimatePresence exitBeforeEnter>
+        <Component {...pageProps} />
+      </AnimatePresence>
       <Footer />
     </Provider>
   );

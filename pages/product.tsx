@@ -7,6 +7,8 @@ import Link from 'next/link';
 import '../utils/fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Loader from '../components/Loader';
+import { motion } from 'framer-motion';
+import { fadeInUp, stagger, fadeInFromLeft } from '../utils/animations';
 
 function product() {
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ function product() {
     <div className={styles.product}>
       {!selectedProduct && <Loader containerHeight="85vh" />}
       {selectedProduct && (
-        <div className={styles.body}>
+        <motion.div exit={{ opacity: 0 }} initial="hidden" animate="show" className={styles.body}>
           <div className={styles.left}>
             <Link href="/">
               <a>
@@ -34,19 +36,19 @@ function product() {
               </a>
             </Link>
             <div className={styles.image}>
-              <img src={selectedProduct.image} alt={selectedProduct.title} />
+              <motion.img variants={fadeInFromLeft} src={selectedProduct.image} alt={selectedProduct.title} />
             </div>
           </div>
-          <div className={styles.right}>
-            <h1>{selectedProduct.title}</h1>
-            <p>{selectedProduct.description}</p>
-            <h2>
+          <motion.div variants={stagger} className={styles.right}>
+            <motion.h1 variants={fadeInUp}>{selectedProduct.title}</motion.h1>
+            <motion.p variants={fadeInUp}>{selectedProduct.description}</motion.p>
+            <motion.h2 variants={fadeInUp}>
               <span>{selectedProduct.displayPrice.charAt(0)}</span>
               {selectedProduct.displayPrice.substring(1)}
-            </h2>
-            <button>Buy Now</button>
-          </div>
-        </div>
+            </motion.h2>
+            <motion.button variants={fadeInUp}>Buy Now</motion.button>
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );
