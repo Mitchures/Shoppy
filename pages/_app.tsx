@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    if (products && rates) {
+    if (products) {
       // Initially format product prices for USD since its the base currency.
       fx.base = 'USD';
       fx.rates = rates;
