@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
         setProducts(data);
       });
     // Fetch Currency Rates
-    fetch('https://api.exchangeratesapi.io/latest?base=USD&symbols=EUR,GBP,JPY')
+    fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.NEXT_PUBLIC_API_KEY}&symbols=EUR,GBP,JPY`)
       .then((response) => response.json())
       .then((data) => {
         // Set Rates
