@@ -17,14 +17,14 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     // Fetch products
-    fetch('https://fakestoreapi.com/products')
+    fetch('//fakestoreapi.com/products')
       .then((response) => response.json())
       .then((data) => {
         // Set list of products
         setProducts(data);
       });
     // Fetch Currency Rates
-    fetch(`https://api.exchangeratesapi.io/v1/latest?access_key=${process.env.NEXT_PUBLIC_API_KEY}&symbols=EUR,GBP,JPY`)
+    fetch(`//api.exchangeratesapi.io/v1/latest?access_key=${process.env.NEXT_PUBLIC_API_KEY}&symbols=EUR,GBP,JPY`)
       .then((response) => response.json())
       .then((data) => {
         // Set Rates
