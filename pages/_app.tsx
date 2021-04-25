@@ -21,8 +21,7 @@ function MyApp({ Component, pageProps }) {
       .then((response) => response.json())
       .then((data) => {
         // Set list of products
-        // setProducts(data);
-        dispatch({ type: 'SET_PRODUCTS', products: data });
+        setProducts(data);
       });
     // Fetch Currency Rates
     fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.NEXT_PUBLIC_API_KEY}&symbols=EUR,GBP,JPY`)
@@ -34,22 +33,22 @@ function MyApp({ Component, pageProps }) {
       });
   }, []);
 
-  // useEffect(() => {
-  //   if (products) {
-  //     // Initially format product prices for USD since its the base currency.
-  //     fx.base = 'USD';
-  //     fx.rates = rates;
-  //     const updatedProducts = [
-  //       ...products.map((product) => {
-  //         // Format to displayPrice to preserve original product price
-  //         product.displayPrice = '$' + fx(product.price).from('USD').to('USD').toFixed(2);
-  //         return product;
-  //       }),
-  //     ];
-  //     dispatch({ type: 'SET_PRODUCTS', products: updatedProducts });
-  //     dispatch({ type: 'SET_RATES', rates: rates });
-  //   }
-  // }, [products, rates]);
+  useEffect(() => {
+    if (products) {
+      // Initially format product prices for USD since its the base currency.
+      // fx.base = 'USD';
+      // fx.rates = rates;
+      const updatedProducts = [
+        ...products.map((product) => {
+          // Format to displayPrice to preserve original product price
+          // product.displayPrice = '$' + fx(product.price).from('USD').to('USD').toFixed(2);
+          product.displayPrice = '$' + product.price.toFixed(2);
+          return product;
+        }),
+      ];
+      dispatch({ type: 'SET_PRODUCTS', products: updatedProducts });
+    }
+  }, [products]);
 
   return (
     <Provider store={store}>
